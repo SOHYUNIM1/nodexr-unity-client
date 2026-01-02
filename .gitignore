@@ -1,0 +1,41 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]serSettings/
+MemoryCaptures/
+
+# IDE / OS
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+.DS_Store
+
+# Unity cache / crash
+sysinfo.txt
+
+# Addressables / StreamingAssets cache (필요시)
+# [Aa]ssets/[Aa]ddressableAssetsData/*/*.bin*
+
+# If you use Unity Package Manager lock (선택)
+# Packages/packages-lock.json
+# Local temp
+.utmp/
+
+# Build artifacts
+NodeXR_BurstDebugInformation_DoNotShip/
+*.apk
+
