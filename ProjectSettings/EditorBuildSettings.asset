@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UiTest.unity
     guid: 73664930b787e49fabff8eba8034f6b2
+  - enabled: 1
+    path: Assets/Jiseon/vr/vr_lobby.unity
+    guid: 9c39d86d23c16b440b723ba408bba50e
+  - enabled: 1
+    path: Assets/Jiseon/vr/vr_scene.unity
+    guid: d15ed7208177dc5499ca771204a33a8d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 68e62dc8d73864ea09e8891a0397c462, type: 2}
