@@ -31,6 +31,14 @@ public class PlayerInfo : NetworkBehaviour
     [Networked, OnChangedRender(nameof(OnRoleChangedRender))]
     public Role PlayerRole { get; private set; }
 
+    [Header("Leader UI")]
+    public GameObject leaderIcon; // 인스펙터에서 왕관(호스트) 아이콘 연결
+
+    // 네트워크를 통해 모든 유저에게 동기화될 호스트 상태 값
+    [Networked, OnChangedRender(nameof(UpdateLeaderIcon))]
+    public NetworkBool IsLeader { get; set; }
+
+
     bool _uiWired;
 
     public string cachedName = "(unnamed)";
@@ -39,31 +47,21 @@ public class PlayerInfo : NetworkBehaviour
 
     void Start()
     {
-        ResolveManager();
-
-        // ȣ��Ʈ�� Ready ��ư ����, Ŭ��� ǥ��
         if (HasInputAuthority && readyButton != null && !_uiWired)
         {
             if (!IsHost)
             {
-                readyButton.onClick.AddListener(ToggleReady);
-                readyButton.gameObject.SetActive(true);
-                _uiWired = true;
+                
             }
             else
             {
-                readyButton.gameObject.SetActive(false);
+                
             }
-        }
-        else if (readyButton != null)
-        {
-            readyButton.gameObject.SetActive(false);
         }
     }
 
     public override void Spawned()
     {
-        ResolveManager();
 
         cachedName = playerName.ToString();
 
@@ -72,8 +70,28 @@ public class PlayerInfo : NetworkBehaviour
             nameDisplayTMP.text = cachedName;
             transform.gameObject.name = cachedName;
         }
+
+        // 1. 객체가 생성될 때, 해당 객체의 주인(StateAuthority)이 호스트 여부를 판단해서 기록합니다.
+        if (Object.HasStateAuthority)
+        {
+            IsLeader = IsHost;
+        }
+
+        // 2. 스폰 즉시 아이콘 상태를 반영합니다.
+        UpdateLeaderIcon();
     }
 
+    // IsLeader 값이 바뀌거나 Spawn 시 호출되어 실제 아이콘 오브젝트를 끄고 켭니다.
+    void UpdateLeaderIcon()
+    {
+        if (leaderIcon != null)
+        {
+            leaderIcon.SetActive(IsLeader);
+        }
+    }
+
+
+    
     void OnDestroy()
     {
     }
@@ -178,9 +196,6 @@ public class PlayerInfo : NetworkBehaviour
         // if (nameDisplayTMP) nameDisplayTMP.color = PlayerRole == Role.Saboteur ? new Color(1f,0.5f,0.5f) : Color.white;
     }
 
-    void ResolveManager()
-    {
-    }
 
     private void ApplyRoleToEquip(bool role)
     {

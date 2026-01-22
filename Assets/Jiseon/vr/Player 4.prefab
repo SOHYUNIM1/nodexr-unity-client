@@ -415,6 +415,8 @@ MonoBehaviour:
   bar1: {fileID: 8052698093592097087}
   bar2: {fileID: 8107685527193286628}
   bar3: {fileID: 7352460544595436742}
+  micOnIcon: {fileID: 5753773127135096521}
+  micOffIcon: {fileID: 1899101299567486487}
   source: {fileID: 412044652712789455}
   th1: 0.1
   th2: 0.35
@@ -959,6 +961,9 @@ MonoBehaviour:
   _IsReady:
     _value: 0
   _PlayerRole: 0
+  leaderIcon: {fileID: 4737954126436575431}
+  _IsLeader:
+    _value: 0
   cachedName: (unnamed)
 --- !u!114 &3299013394198058777
 MonoBehaviour:

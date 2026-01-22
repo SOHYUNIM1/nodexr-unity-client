@@ -8,6 +8,10 @@ public class VoiceLevelIndicator : MonoBehaviour
     public Image bar2;
     public Image bar3;
 
+    [Header("마이크 상태 아이콘")]
+    public GameObject micOnIcon;  // 소리가 날 때 보일 아이콘 (예: 초록색 마이크)
+    public GameObject micOffIcon; // 소리가 없을 때 보일 아이콘 (예: 회색 마이크)
+
     [Header("음성 소스")]
     public VoiceLevelSource source;
 
@@ -23,18 +27,23 @@ public class VoiceLevelIndicator : MonoBehaviour
         if (!source) return;
         float v = source.level01;
 
-        // 음향 크기에 따라 3단계 표시
+        // 1. 음향 크기에 따른 3단계 바 표시
         SetActive(bar1, v >= th1);
         SetActive(bar2, v >= th2);
         SetActive(bar3, v >= th3);
+
+        // 2. 마이크 온/오프 아이콘 제어 (th1 기준)
+        bool isSpeaking = v >= th1;
+        if (micOnIcon != null) micOnIcon.SetActive(isSpeaking);
+        if (micOffIcon != null) micOffIcon.SetActive(!isSpeaking);
     }
 
     void SetActive(Graphic g, bool on)
     {
         if (!g) return;
         
-        // g.enabled를 끄면 이미지가 완전히 사라지고, 
-        // 켜져 있을 때는 알파값(투명도)으로 강조/비강조를 표현합니다.
+        // 이미지를 완전히 끄면 레이아웃이 틀어질 수 있으므로 enabled만 제어하거나
+        // 투명도(Alpha)를 함께 조절합니다.
         g.enabled = on; 
         var c = g.color; 
         c.a = on ? 1f : 0.2f; 
