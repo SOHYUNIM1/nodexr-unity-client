@@ -2520,7 +2520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f4ac9d916df9443bcd8b442cac329c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 3937044470431379454, guid: 485c024a5d6ba174bb0dd459ac66d6a7, type: 3}
+  playerPrefab: {fileID: 3937044470431379454, guid: 00683ffc6b00f5145a3d3e5ef4b4ba39, type: 3}
   spawnPoint: {x: 0, y: 0, z: 0}
   nameInputField: {fileID: 131249670}
 --- !u!4 &1765990781
