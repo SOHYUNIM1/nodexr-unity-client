@@ -38,7 +38,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     [Header("Password Panel")]
     public GameObject passwordPanel;
     public TMP_InputField passwordCheckInput;
-    public TMP_Text passwordWarningText;
+    public GameObject passwordWarningImage;
 
     [Header("Network Status UI")]
     public TMP_Text networkStatusText;
@@ -142,7 +142,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             selectedSession = session;
             passwordCheckInput.text = "";
-            passwordWarningText.text = "";
             passwordPanel.SetActive(true);
         }
     }
@@ -157,22 +156,21 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (inputPwd == correctPwd)
         {
-            passwordWarningText.text = "";
+            if (passwordWarningImage != null) passwordWarningImage.SetActive(false);
             passwordPanel.SetActive(false);
             StartCoroutine(JoinRoomRoutine(selectedSession.Name));
         }
         else
         {
-            passwordWarningText.text = "Wrong password!";
-            passwordWarningText.gameObject.SetActive(true);
-            StartCoroutine(ClearWarningText());
+            StartCoroutine(ShowPasswordWarningRoutine());
         }
     }
 
-    private IEnumerator ClearWarningText()
+    private IEnumerator ShowPasswordWarningRoutine()
     {
+        if (passwordWarningImage != null) passwordWarningImage.SetActive(true);
         yield return new WaitForSeconds(3f);
-        passwordWarningText.text = "";
+        if (passwordWarningImage != null) passwordWarningImage.SetActive(false);
     }
 
     public void OnCancelPassword()

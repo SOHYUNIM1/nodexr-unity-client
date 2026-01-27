@@ -7,16 +7,16 @@ public enum VoiceLevelMode { FromSpeaker, FromRecorder }
 
 public class VoiceLevelSource : MonoBehaviour
 {
-    [Header("¼Ò½º ¼±ÅÃ")]
+    [Header("ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public VoiceLevelMode mode = VoiceLevelMode.FromSpeaker;
-    public AudioSource speakerAudio;   // ¿ø°Ý: Speaker¿Í °°Àº ¿ÀºêÁ§Æ®ÀÇ AudioSource
-    public Recorder recorder;          // ·ÎÄÃ: NetRootÀÇ Recorder (ºñ¿öµÎ¸é ÀÚµ¿ Å½»ö)
+    public AudioSource speakerAudio;   // ï¿½ï¿½ï¿½ï¿½: Speakerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ AudioSource
+    public Recorder recorder;          // ï¿½ï¿½ï¿½ï¿½: NetRootï¿½ï¿½ Recorder (ï¿½ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½Úµï¿½ Å½ï¿½ï¿½)
 
-    [Header("ÃøÁ¤ ÆÄ¶ó¹ÌÅÍ")]
-    public int sampleWindow = 256;     // »ùÇÃ °³¼ö
-    public float smoothTime = 0.06f;   // Áö¼öÆòÈ°
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½")]
+    public int sampleWindow = 256;     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float smoothTime = 0.06f;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È°
 
-    [Range(0, 1)] public float level01; // 0~1 Á¤±ÔÈ­µÈ º¼·ý(ÀÐ±â Àü¿ë)
+    [Range(0, 1)] public float level01; // 0~1 ï¿½ï¿½ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
     float _vel;
     float[] _buf;
@@ -31,12 +31,12 @@ public class VoiceLevelSource : MonoBehaviour
             speakerAudio = GetComponent<AudioSource>();
 
         if (mode == VoiceLevelMode.FromRecorder && !recorder)
-            TryResolveRecorder();  // ¡ç ¿©±â¼­ ÀÚµ¿ ¿¬°á
+            TryResolveRecorder();  // ï¿½ï¿½ ï¿½ï¿½ï¿½â¼­ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     void Update()
     {
-        // ¾À ·Îµå Å¸ÀÌ¹Ö ¶§¹®¿¡ Awake¿¡¼­ ¸ø Àâ¾ÒÀ¸¸é 1È¸ ´õ ½Ãµµ
+        // ï¿½ï¿½ ï¿½Îµï¿½ Å¸ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Awakeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1È¸ ï¿½ï¿½ ï¿½Ãµï¿½
         if (mode == VoiceLevelMode.FromRecorder && !recorder && !_triedResolve)
             TryResolveRecorder();
 
@@ -60,7 +60,7 @@ public class VoiceLevelSource : MonoBehaviour
             }
         }
 
-        // 0~1 Á¤±ÔÈ­
+        // 0~1 ï¿½ï¿½ï¿½ï¿½È­
         const float openThreshold = 0.02f;
         const float fullLevel = 0.12f;
         float t = Mathf.Clamp01(Mathf.InverseLerp(openThreshold, fullLevel, rms));
@@ -72,7 +72,7 @@ public class VoiceLevelSource : MonoBehaviour
     {
         _triedResolve = true;
 
-        // 1) FusionVoiceClientÀÇ PrimaryRecorder ¿ì¼±
+        // 1) FusionVoiceClientï¿½ï¿½ PrimaryRecorder ï¿½ì¼±
         var fvc = FindObjectOfType<FusionVoiceClient>();
         if (fvc && fvc.PrimaryRecorder)
         {
@@ -80,7 +80,7 @@ public class VoiceLevelSource : MonoBehaviour
             return;
         }
 
-        // 2) ÇÁ·ÎÁ§Æ® ³» ¾Æ¹« Recorder (DontDestroyOnLoad Æ÷ÇÔ)
+        // 2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½Æ¹ï¿½ Recorder (DontDestroyOnLoad ï¿½ï¿½ï¿½ï¿½)
         recorder = FindObjectOfType<Recorder>(true);
     }
 
